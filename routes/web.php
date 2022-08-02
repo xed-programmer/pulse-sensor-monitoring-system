@@ -20,4 +20,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::group(['middleware'=>['auth']], function (){
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+});
+
+Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
+    Route::get('/', function(){
+        return view('admin.index');
+    });  
+});
