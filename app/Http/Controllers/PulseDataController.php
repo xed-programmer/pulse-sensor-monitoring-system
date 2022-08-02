@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Device;
+use App\Models\Pulse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
+class PulseDataController extends Controller
+{
+    private $api_key_value = 'tPmAT5Ab3j7F9'; 
+    public function index(Request $request)
+    {
+        $request->validate([
+            'api_key'=>'required',
+            'id'=>['required','exists:devices,machine_number'],
+            'hr'=>'required',
+            'spo2'=>'required'
+        ]);
+
+        if($request->api_key != $this->api_key_value){
+            echo "api is invalid";
+        }
+
+        $device = Device::where('machine_number', $request->id)->firstOrFail();            
+        Pulse::create([
+            'device_id'=>$device->id,
+            'patient_id'=>$device->patient_id,
+            'hr'=>$request->hr,
+            'spo2'=>$request->spo2
+        ]);
+        echo "ok";
+    }
+}
