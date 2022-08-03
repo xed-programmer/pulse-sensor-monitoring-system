@@ -15,4 +15,14 @@ class Pulse extends Model
         'spo2',
         'patient_id'        
     ];
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
+    public function device()
+    {
+        return $this->belongsTo(Device::class);
+    }
 }

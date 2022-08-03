@@ -14,4 +14,9 @@ class Device extends Model
         'machine_number',
         'patient_id'
     ];
+
+    public function patient()
+    {
+        return $this->hasOne(Patient::class, 'id', 'patient_id');
+    }
 }

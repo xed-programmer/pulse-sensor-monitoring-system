@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('pulse-data', [PulseDataController::class, 'index'])->name('pulse.data');
+Route::post('patientpulse', [PulseDataController::class, 'getPatientPulse'])->name('patient.pulse');
