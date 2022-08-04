@@ -22,5 +22,9 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
     // Device 
     Route::group(['prefix'=>'device', 'as'=>'device.'], function(){
         Route::get('/', [DeviceController::class, 'index'])->name('index');
+        Route::post('/', [DeviceController::class, 'store'])->name('store');
+        // Route::get('/{device}', [DeviceController::class, 'edit'])->name('edit');
+        Route::put('/', [DeviceController::class, 'update'])->name('update');
+        Route::delete('/{device}', [DeviceController::class, 'destroy'])->name('delete');
     });
 });

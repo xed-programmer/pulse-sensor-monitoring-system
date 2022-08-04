@@ -42,7 +42,7 @@
             </div>
             <div class="card-body">
                 <div class="chart">
-                    <canvas id="{{ 'lineChart'.($i+1) }}"
+                    <canvas id="{{ 'lineChart'.$device->id }}"
                         style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
             </div>
@@ -68,10 +68,8 @@
                 }
             }))
             .then((data,textStatus,jqXHR)=>{
-                let datas = JSON.parse(data)
-                let j=1;
-                Object.keys(datas).forEach(key => {
-                    // console.log(datas[key][0]['created_at']);
+                let datas = JSON.parse(data)                
+                Object.keys(datas).forEach(key => {                    
                     let tempData = datas[key]
                     let labels = []
                     let hr = []
@@ -81,8 +79,7 @@
                         hr.push(tempData[i]['hr'])
                         spo2.push(tempData[i]['spo2'])
                     }
-                    createChart(labels, hr, spo2, tempData[0]['patient']['name'], '#lineChart'+j)
-                    j++
+                    createChart(labels, hr, spo2, tempData[0]['patient']['name'], '#lineChart'+key)                    
                 });
             })
         }

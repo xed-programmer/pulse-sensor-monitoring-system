@@ -39,7 +39,7 @@ class PulseDataController extends Controller
         $patients_id = [];
         foreach ($devices as $d) {
             array_push($patients_id, $d['patient_id']);
-        }    
+        }
         foreach ($devices as $d) {
             array_push($devices_id, $d['id']);
         }
@@ -48,12 +48,13 @@ class PulseDataController extends Controller
         ->whereHas('patient', function($q) use ($patients_id){
             $q->whereIn('id', $patients_id);
         })
-        ->whereHas('device', function($q) use ($devices_id){
-            $q->whereIn('id', $devices_id);
+        ->whereHas('device', function($q) use ($devices_id, $patients_id){
+            $q->whereIn('id', $devices_id)
+            ->whereIn('patient_id', $patients_id);
         })
-        ->limit(10)        
+        ->limit(10)
         ->get()
-        ->groupBy('patient_id');        
+        ->groupBy('patient_id');
 
         echo json_encode($pulses);
     }

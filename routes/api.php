@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\PulseDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('pulse-data', [PulseDataController::class, 'index'])->name('pulse.data');
 Route::post('patientpulse', [PulseDataController::class, 'getPatientPulse'])->name('patient.pulse');
+Route::get('admin/device/edit', [DeviceController::class, 'edit'])->name('admin.device.edit');
