@@ -1,5 +1,10 @@
 @extends('layouts.admin')
 
+@section('preload')
+<div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
+</div>
+@endsection
 @section('header')
 <div class="content-header">
     <div class="container-fluid">
@@ -10,7 +15,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard v1</li>
+                    <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -21,29 +26,29 @@
 @section('content')
 <div class="row">
     @foreach ($devices as $i => $device)
-        <div class="col-md-12">
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title">{{ $device->name }}</h3>
+    <div class="col-md-12">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">{{ $device->name }}</h3>
 
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                <div class="card-body">
-                    <div class="chart">
-                        <canvas id="{{ 'lineChart'.($i+1) }}"
-                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                    </div>
-                </div>
-                <!-- /.card-body -->
             </div>
-        </div>        
+            <div class="card-body">
+                <div class="chart">
+                    <canvas id="{{ 'lineChart'.($i+1) }}"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
     @endforeach
 </div>
 @endsection
@@ -161,5 +166,5 @@
             getData()
         }, 3000);
     })
-  </script>
+</script>
 @endpush

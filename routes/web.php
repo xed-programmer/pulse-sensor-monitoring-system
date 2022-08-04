@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,5 +17,10 @@ Route::group(['middleware'=>['auth']], function (){
 });
 
 Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
-    Route::get('/', [AdminController::class, 'index']);
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+
+    // Device 
+    Route::group(['prefix'=>'device', 'as'=>'device.'], function(){
+        Route::get('/', [DeviceController::class, 'index'])->name('index');
+    });
 });
