@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $devices = Device::with('patient')->get();
+        $devices = Device::all();
         return view('admin.index')->with([
             'devices'=>$devices
         ]);

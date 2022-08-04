@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Device;
 use App\Models\Pulse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class PulseDataController extends Controller
 {
@@ -45,7 +44,7 @@ class PulseDataController extends Controller
             array_push($devices_id, $d['id']);
         }
 
-        $pulses = Pulse::with(['patient','device'])
+        $pulses = Pulse::with(['patient'])
         ->whereHas('patient', function($q) use ($patients_id){
             $q->whereIn('id', $patients_id);
         })

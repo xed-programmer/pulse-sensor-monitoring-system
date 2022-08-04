@@ -37,7 +37,7 @@
                 </div>
                 <div class="card-body">
                     <div class="chart">
-                        <canvas id="{{ 'lineChart'.$i }}"
+                        <canvas id="{{ 'lineChart'.($i+1) }}"
                             style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                 </div>
@@ -50,6 +50,7 @@
 
 @push('scripts')
 <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
+<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
 <script>
     $(function () {
 
@@ -62,61 +63,90 @@
                 }
             }))
             .then((data,textStatus,jqXHR)=>{
-                let datas = JSON.parse(data)                
+                let datas = JSON.parse(data)
+                let j=1;
                 Object.keys(datas).forEach(key => {
-                    console.log(datas[key][0]['created_at']);
+                    // console.log(datas[key][0]['created_at']);
                     let tempData = datas[key]
-                    for (let i = 0; i < tempData.length; i++) {    
+                    let labels = []
+                    let hr = []
+                    let spo2 = []
+                    for (let i = 0; i < tempData.length; i++) {                        
+                        labels.push(new moment(tempData[i]['created_at']).format('MMM Do YYYY h:mm:ss a'))
+                        hr.push(tempData[i]['hr'])
+                        spo2.push(tempData[i]['spo2'])
                     }
+                    createChart(labels, hr, spo2, tempData[0]['patient']['name'], '#lineChart'+j)
+                    j++
                 });
             })
         }
-
-        getData()
-        function createChart(){
+        
+        function createChart(labels, hr, spo2, name, chartId){
             var areaChartData = {
-                labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels  : labels,
                 datasets: [
                 {
-                    label               : 'Digital Goods',
-                    backgroundColor     : 'rgba(60,141,188,0.9)',
-                    borderColor         : 'rgba(60,141,188,0.8)',
-                    pointRadius          : false,
-                    pointColor          : '#3b8bba',
+                    label               : 'HEART RATE',
+                    backgroundColor     : '#D12038',
+                    borderColor         : '#D12038',                    
+                    pointColor          : '#C70039',
                     pointStrokeColor    : 'rgba(60,141,188,1)',
                     pointHighlightFill  : '#fff',
                     pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data                : [28, 48, 40, 19, 86, 27, 90]
-                }
+                    data                : hr,                    
+                    pointStyle          : 'circle',
+                    pointRadius         : 10,
+                    pointHoverRadius    : 15
+                },
+                {
+                    label               : 'SPO2 LEVEL',
+                    backgroundColor     : '#2065D1',
+                    borderColor         : '#2065D1',                    
+                    pointColor          : '#2065D1',
+                    pointStrokeColor    : '#c1c7d1',
+                    pointHighlightFill  : '#fff',
+                    pointHighlightStroke: 'rgba(220,220,220,1)',
+                    data                : spo2,
+                    pointStyle          : 'circle',
+                    pointRadius         : 10,
+                    pointHoverRadius    : 15
+                },
                 ]
             }
         
             var areaChartOptions = {
                 maintainAspectRatio : false,
                 responsive : true,
+                animation: {
+                    duration: 0
+                },
+                title:{
+                    display:true,
+                    text: name
+                },
                 legend: {
-                display: false
+                display: true
                 },
                 scales: {
                 xAxes: [{
                     gridLines : {
-                    display : false,
+                    display : true,
                     }
                 }],
                 yAxes: [{
                     gridLines : {
-                    display : false,
+                    display : true,
                     }
                 }]
                 }
             }
-        
-            //-------------
-            //- LINE CHART -
-            //--------------
-            var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+
+            var lineChartCanvas = $(chartId).get(0).getContext('2d')
             var lineChartOptions = $.extend(true, {}, areaChartOptions)
             var lineChartData = $.extend(true, {}, areaChartData)
+            lineChartData.datasets[0].fill = false;
+            lineChartData.datasets[1].fill = false;
             lineChartOptions.datasetFill = false
         
             var lineChart = new Chart(lineChartCanvas, {
@@ -125,6 +155,11 @@
                 options: lineChartOptions
             })
         }
+
+        getData()
+        setInterval(() => {
+            getData()
+        }, 3000);
     })
   </script>
 @endpush
