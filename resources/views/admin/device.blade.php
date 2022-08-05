@@ -162,13 +162,13 @@
         <script>
             toastr.error("{{ session()->get('message') }}")
         </script>
-    @endif        
+    @endif
 @endif
 
 <script>
     $(function(){
         $('body').on('click', '#btn_edit_device', function(){
-            var device_id = $(this).data('device-id')            
+            var device_id = $(this).data('device-id')
             $.when($.ajax({
                 method:"GET",
                 url: "{{ route('admin.device.edit') }}",
@@ -176,14 +176,14 @@
                     id: device_id
                 }
             }))
-            .then((data,textStatus,jqXHR)=>{                
+            .then((data,textStatus,jqXHR)=>{
                 $('#device_id').val(data['id'])
-                $('#edit_name').val(data['name'])                
-                $('#edit_machine_number').val(data['machine_number'])                
+                $('#edit_name').val(data['name'])
+                $('#edit_machine_number').val(data['machine_number'])
                 $('#edit_patient').val(data['patient']['id'])
             })
         })
     })
 </script>
-<x-data-table-scripts id="#deviceTable" />
+<x-data-table-scripts id="#deviceTable"/>
 @endpush

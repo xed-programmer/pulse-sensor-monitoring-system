@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class PulseDataController extends Controller
 {
-    private $api_key_value = 'tPmAT5Ab3j7F9'; 
+    private $api_key_value = 'tPmAT5Ab3j7F9';
     public function index(Request $request)
     {
         $request->validate([
