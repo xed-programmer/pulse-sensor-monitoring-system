@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DeviceController;
+use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\ApiDataController;
 use App\Http\Controllers\PulseDataController;
 use Illuminate\Http\Request;
@@ -24,4 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('pulse-data', [PulseDataController::class, 'index'])->name('pulse.data');
 Route::post('patientpulse', [PulseDataController::class, 'getPatientPulse'])->name('patient.pulse');
 Route::post('device-data', [ApiDataController::class, 'getDevice'])->name('device.data');
+
+
 Route::get('admin/device/edit', [DeviceController::class, 'edit'])->name('admin.device.edit');
+Route::get('admin/patient/edit', [PatientController::class, 'edit'])->name('admin.patient.edit');
