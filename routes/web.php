@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PulseDataController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,8 @@ Route::group(['middleware'=>['auth']], function (){
 
 Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
     Route::get('/', [AdminController::class, 'index'])->name('index');
-
+    Route::get('/data', [PulseDataController::class, 'getPatientPulse']);
+    
     // Device 
     Route::group(['prefix'=>'device', 'as'=>'device.'], function(){
         Route::get('/', [DeviceController::class, 'index'])->name('index');

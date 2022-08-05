@@ -32,30 +32,21 @@ class PulseDataController extends Controller
         echo "ok";
     }
 
-    public function getPatientPulse(Request $request)
+    public function getPatientPulse()
     {
         $devices = Device::all();
-        $devices_id = [];
-        $patients_id = [];
-        foreach ($devices as $d) {
-            array_push($patients_id, $d['patient_id']);
-        }
-        foreach ($devices as $d) {
-            array_push($devices_id, $d['id']);
-        }
+        $array_pulse = array();
 
-        $pulses = Pulse::with(['patient'])
-        ->whereHas('patient', function($q) use ($patients_id){
-            $q->whereIn('id', $patients_id);
-        })
-        ->whereHas('device', function($q) use ($devices_id, $patients_id){
-            $q->whereIn('id', $devices_id)
-            ->whereIn('patient_id', $patients_id);
-        })
-        ->limit(10)
-        ->get()
-        ->groupBy('patient_id');
-
-        echo json_encode($pulses);
+        foreach ($devices as $d) {
+            $pulse = Pulse::with(['patient'])
+            ->where('patient_id', $d['patient_id'])
+            ->where('device_id', $d['id'])
+            ->limit(10)
+            ->get()
+            ->groupBy('device_id');
+            // $array_pulse = $pulse;
+            array_push($array_pulse, $pulse);
+        }        
+        echo json_encode($array_pulse);
     }
 }

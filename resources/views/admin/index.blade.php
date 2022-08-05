@@ -62,25 +62,26 @@
         function getData(){
             $.when($.ajax({
                 method:'POST',
-                url: '{{ route("patient.pulse") }}',
-                data:{
-                    api_key: "tPmAT5Ab3j7F9"
-                }
+                url: '{{ route("patient.pulse") }}'
             }))
             .then((data,textStatus,jqXHR)=>{
-                let datas = JSON.parse(data)                
-                Object.keys(datas).forEach(key => {                    
-                    let tempData = datas[key]
-                    let labels = []
-                    let hr = []
-                    let spo2 = []
-                    for (let i = 0; i < tempData.length; i++) {                        
-                        labels.push(new moment(tempData[i]['created_at']).format('MMM Do YYYY h:mm:ss a'))
-                        hr.push(tempData[i]['hr'])
-                        spo2.push(tempData[i]['spo2'])
-                    }
-                    createChart(labels, hr, spo2, tempData[0]['patient']['name'], '#lineChart'+key)                    
-                });
+                let datas = JSON.parse(data)
+                // console.log(datas);
+                for(var i = 0; i<datas.length; i++){
+                    Object.keys(datas[i]).forEach(key => {
+                        // console.log(datas[i][key]);
+                        let tempData = datas[i][key]
+                        let labels = []
+                        let hr = []
+                        let spo2 = []
+                        for (let i = 0; i < tempData.length; i++) {                        
+                            labels.push(new moment(tempData[i]['created_at']).format('MMM Do YYYY h:mm:ss a'))
+                            hr.push(tempData[i]['hr'])
+                            spo2.push(tempData[i]['spo2'])
+                        }
+                        createChart(labels, hr, spo2, tempData[0]['patient']['name'], '#lineChart'+key)                    
+                    });
+                }
             })
         }
         
