@@ -169,6 +169,10 @@
     $(function(){
         $('body').on('click', '#btn_edit_device', function(){
             var device_id = $(this).data('device-id')
+            $('#device_id').val("")
+            $('#edit_name').val("")
+            $('#edit_machine_number').val("")
+            $('#edit_patient').val("")
             $.when($.ajax({
                 method:"GET",
                 url: "{{ route('admin.device.edit') }}",

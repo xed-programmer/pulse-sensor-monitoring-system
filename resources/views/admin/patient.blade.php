@@ -165,6 +165,10 @@
     $(function(){
         $('body').on('click', '#btn_edit_patient', function(){
             var patient_id = $(this).data('patient-id')
+            $('#patient_id').val("")
+            $('#edit_name').val("")
+            $('#edit_age').val("")
+            $('#edit_phone').val("")              
             $.when($.ajax({
                 method:"GET",
                 url: "{{ route('admin.patient.edit') }}",
