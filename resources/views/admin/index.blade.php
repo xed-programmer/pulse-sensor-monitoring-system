@@ -25,7 +25,7 @@
 
 @section('content')
 <div class="row">
-    @foreach ($devices as $i => $device)
+    @forelse ($devices as $i => $device)
     <div class="col-md-12">
         <div class="card card-info">
             <div class="card-header">
@@ -49,7 +49,11 @@
             <!-- /.card-body -->
         </div>
     </div>
-    @endforeach
+    @empty
+    <div class="col-md-12">
+        <h1 class="text-center text-gray">No Device/Pulse Sensor</h1>
+    </div>
+    @endforelse
 </div>
 @endsection
 

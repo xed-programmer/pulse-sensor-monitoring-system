@@ -76,6 +76,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('admin.patient.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-procedures"></i>
+                                <p>Patient</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('admin.device.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-laptop-medical"></i>
                                 <p>Device</p>
