@@ -13,5 +13,6 @@ class Patient extends Model
         'name',
         'phone',
         'age',
+        'patient_number'
     ];
 }

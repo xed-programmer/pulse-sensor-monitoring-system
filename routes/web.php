@@ -37,6 +37,6 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
         Route::post('/', [PatientController::class, 'store'])->name('store');
         // Route::get('/{device}', [PatientController::class, 'edit'])->name('edit');
         Route::put('/', [PatientController::class, 'update'])->name('update');
-        Route::delete('/{device}', [PatientController::class, 'destroy'])->name('delete');
+        Route::delete('/{patient}', [PatientController::class, 'destroy'])->name('delete');
     });
 });

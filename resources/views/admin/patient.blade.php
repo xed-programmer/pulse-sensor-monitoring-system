@@ -40,6 +40,7 @@
                 <table id="patientTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>PATIENT NUMBER</th>
                             <th>NAME</th>
                             <th>AGE</th>
                             <th>PHONE</th>
@@ -49,11 +50,12 @@
                     <tbody>
                         @foreach ($patients as $patient)
                         <tr>
+                            <th>{{ $patient->patient_number }}</th>
                             <th>{{ $patient->name }}</th>
                             <th>{{ $patient->age }}</th>
                             <th>{{ $patient->phone }}</th>
                             <th>
-                                <form action="{{ route('admin.device.delete', $patient) }}" method="POST"
+                                <form action="{{ route('admin.patient.delete', $patient) }}" method="POST"
                                     onsubmit="return confirm('Do you want to delete this patient?');">
                                     @csrf
                                     @method('DELETE')
@@ -87,8 +89,8 @@
                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter Patient Name">
                     </div>
                     <div class="form-group">
-                        <label for="phone">Age</label>
-                        <input type="tel" class="form-control" id="phone" name="phone"
+                        <label for="age">Age</label>
+                        <input type="number" min="0" class="form-control" id="age" name="age"
                             placeholder="Enter Patient Age">
                     </div>
                     <div class="form-group">
@@ -111,7 +113,7 @@
     <div class="modal-dialog">
         <div class="modal-content bg-warning">
             <div class="modal-header">
-                <h4 class="modal-title">Add Patient</h4>
+                <h4 class="modal-title">Update Patient</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -139,10 +141,8 @@
                     <button type="submit" class="btn btn-outline-dark">Save</button>
                 </div>
             </form>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
+        </div>        
+    </div>    
 </div>
 @endsection
 
