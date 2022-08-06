@@ -47,7 +47,7 @@
                             <th>CONTROL</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {{-- <tbody>
                         @foreach ($patients as $patient)
                         <tr>
                             <th>{{ $patient->patient_number }}</th>
@@ -65,7 +65,7 @@
                             </th>
                         </tr>
                         @endforeach
-                    </tbody>
+                    </tbody> --}}
                 </table>
             </div>
         </div>
@@ -185,5 +185,35 @@
         })
     })
 </script>
-<x-data-table-scripts id="#patientTable"/>
+<x-data-table-scripts/>
+<script>
+    $(function () {
+        $("#patientTable").DataTable({
+          "responsive": true, "lengthChange": false, "autoWidth": false,
+          ajax:{
+            method:"POST",
+            url: "{{ route('patient.data') }}",
+            data:{
+              api_key:"tPmAT5Ab3j7F9"
+            }
+          },
+          columns:[
+            {'data': 1},
+            {'data': 2},
+            {'data': 3},
+            {'data': 4},
+            {
+              'data': 0,
+              'render':function(data,type,row,meta){
+                return `<form action="{{ route("admin.patient.delete") }}" method="POST" onsubmit="return confirm('Do you want to delete this patient?');"> @csrf @method("DELETE") <input type="hidden" name="id" value='+data+'> <input type="button" id="btn_edit_patient" data-toggle="modal" data-target="#modal-edit" data-patient-id="${data}" class="btn bg-warning" value="Edit"> <input type="submit" class="btn bg-danger" value="Delete"> </form>`
+              }
+            },
+          ]
+        });
+
+        setInterval(() => {            
+            $("#patientTable").DataTable().ajax.reload();
+        }, 3000);
+      });    
+</script>
 @endpush

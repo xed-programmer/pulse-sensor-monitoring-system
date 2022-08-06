@@ -80,8 +80,12 @@ class PatientController extends Controller
         return redirect()->route('admin.patient.index');
     }
 
-    public function destroy(Request $request, Patient $patient)
+    public function destroy(Request $request)    
     {
+        $request->validate([
+            'id' => ['required','exists:patients,id']
+        ]);
+        $patient = Patient::find($request->id);
         if ($patient->delete()) {
             $request->session()->flash('message', 'Patient Data Deleted Successfully');
             $request->session()->flash('result', 'success');

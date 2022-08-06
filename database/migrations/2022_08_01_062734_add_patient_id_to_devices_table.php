@@ -14,7 +14,7 @@ class AddPatientIdToDevicesTable extends Migration
     public function up()
     {
         Schema::table('devices', function (Blueprint $table) {
-            $table->foreignId('patient_id')->constrained();
+            $table->foreignId('patient_id')->nullable(true)->constrained();
         });
     }
 

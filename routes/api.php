@@ -24,7 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('pulse-data', [PulseDataController::class, 'index'])->name('pulse.data');
 Route::post('patientpulse', [PulseDataController::class, 'getPatientPulse'])->name('patient.pulse');
-Route::post('device-data', [ApiDataController::class, 'getDevice'])->name('device.data');
+Route::post('device-data', [ApiDataController::class, 'getDevices'])->name('device.data');
+Route::post('patient-data', [ApiDataController::class, 'getPatients'])->name('patient.data');
 
 
 Route::get('admin/device/edit', [DeviceController::class, 'edit'])->name('admin.device.edit');

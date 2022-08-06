@@ -28,7 +28,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
         Route::post('/', [DeviceController::class, 'store'])->name('store');
         // Route::get('/{device}', [DeviceController::class, 'edit'])->name('edit');
         Route::put('/', [DeviceController::class, 'update'])->name('update');
-        Route::delete('/{device}', [DeviceController::class, 'destroy'])->name('delete');
+        Route::delete('/', [DeviceController::class, 'destroy'])->name('delete');
     });
 
     // Patient
@@ -37,6 +37,6 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
         Route::post('/', [PatientController::class, 'store'])->name('store');
         // Route::get('/{device}', [PatientController::class, 'edit'])->name('edit');
         Route::put('/', [PatientController::class, 'update'])->name('update');
-        Route::delete('/{patient}', [PatientController::class, 'destroy'])->name('delete');
+        Route::delete('/', [PatientController::class, 'destroy'])->name('delete');
     });
 });

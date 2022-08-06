@@ -63,8 +63,13 @@ class DeviceController extends Controller
         return redirect()->route('admin.device.index');
     }
 
-    public function destroy(Request $request, Device $device)
+    public function destroy(Request $request)
     {
+        $request->validate([
+            'id' => ['required', 'exists:devices,id']
+        ]);
+        
+        $device = Device::find($request->id);
         if ($device->delete()) {
             $request->session()->flash('message', 'Device Data Deleted Successfully');
             $request->session()->flash('result', 'success');

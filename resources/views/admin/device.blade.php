@@ -46,7 +46,7 @@
                             <th>CONTROL</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {{-- <tbody>
                         @foreach ($devices as $device)
                         <tr>
                             <th>{{ $device->name }}</th>
@@ -67,7 +67,7 @@
                             </th>
                         </tr>
                         @endforeach
-                    </tbody>
+                    </tbody> --}}
                 </table>
             </div>
         </div>
@@ -119,7 +119,7 @@
                 <div class="modal-body">
                     @csrf
                     @method('PUT')
-                    <input type="text" class="form-control" id="device_id" name="id" hidden>
+                    <input type="text" id="device_id" name="id" hidden>
                     <div class="form-group">
                         <label for="edit_name">Device Name</label>
                         <input type="text" class="form-control" id="edit_name" name="name">
@@ -189,5 +189,34 @@
         })
     })
 </script>
-<x-data-table-scripts id="#deviceTable"/>
+<x-data-table-scripts/>
+<script>
+    $(function () {
+        $("#deviceTable").DataTable({
+          "responsive": true, "lengthChange": false, "autoWidth": false,
+          ajax:{
+            method:"POST",
+            url: "{{ route('device.data') }}",
+            data:{
+              api_key:"tPmAT5Ab3j7F9"
+            }
+          },
+          columns:[
+            {'data': 1},
+            {'data': 2},
+            {'data': 3},
+            {
+              'data': 0,
+              'render':function(data,type,row,meta){
+                return `<form action="{{ route("admin.device.delete") }}" method="POST" onsubmit="return confirm('Do you want to delete this device?');"> @csrf @method("DELETE") <input type="hidden" name="id" value='+data+'> <input type="button" id="btn_edit_device" data-toggle="modal" data-target="#modal-edit" data-device-id="${data}" class="btn bg-warning" value="Edit"> <input type="submit" class="btn bg-danger" value="Delete"> </form>`
+              }
+            },
+          ]
+        });
+
+        setInterval(() => {            
+            $("#deviceTable").DataTable().ajax.reload();
+        }, 3000);
+      });    
+</script>
 @endpush

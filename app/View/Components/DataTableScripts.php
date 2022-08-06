@@ -7,9 +7,9 @@ use Illuminate\View\Component;
 class DataTableScripts extends Component
 {
     public $id;
-    public function __construct($id)
+    public function __construct()
     {
-        $this->id = $id;
+        
     }
 
     /**
