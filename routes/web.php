@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PulseDataController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +35,14 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
         // Route::get('/{device}', [PatientController::class, 'edit'])->name('edit');
         Route::put('/', [PatientController::class, 'update'])->name('update');
         Route::delete('/', [PatientController::class, 'destroy'])->name('delete');
+    });
+});
+
+Route::group(['prefix'=>'user', 'as'=>'user.'], function(){
+    Route::get('/', [UserController::class, 'index'])->name('index');
+
+    Route::group(['prefix'=>'patient', 'as'=>'patient.'], function(){
+        Route::get('/', [UserController::class,'showPatient'])->name('show');
+        Route::post('/', [UserController::class,'storePatient'])->name('store');
     });
 });

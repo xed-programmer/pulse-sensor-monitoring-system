@@ -42,4 +42,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function patients()
+    {
+        return $this->belongsToMany(Patient::class);
+    }
+
+    public function hasPatient(Patient $patient)
+    {
+        foreach($this->patients()->get() as $p){
+            if($p->id == $patient->id){
+                return true;
+            }
+        }
+        return false;
+    }
 }

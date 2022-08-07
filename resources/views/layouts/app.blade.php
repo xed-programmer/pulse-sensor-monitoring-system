@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     @stack('links')
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
@@ -101,6 +102,18 @@
     <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+    @if (session()->has('message'))
+        @if(session()->get('result') == "success")
+            <script>
+                toastr.success("{{ session()->get('message') }}")
+            </script>
+        @else
+            <script>
+                toastr.error("{{ session()->get('message') }}")
+            </script>
+        @endif
+    @endif
     @stack('scripts')
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>

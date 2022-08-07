@@ -26,6 +26,7 @@ Route::post('pulse-data', [PulseDataController::class, 'index'])->name('pulse.da
 Route::post('patientpulse', [PulseDataController::class, 'getPatientPulse'])->name('patient.pulse');
 Route::post('device-data', [ApiDataController::class, 'getDevices'])->name('device.data');
 Route::post('patient-data', [ApiDataController::class, 'getPatients'])->name('patient.data');
+Route::get('user-patient-data', [ApiDataController::class, 'getUserPatients'])->name('user.patient.data');
 
 
 Route::get('admin/device/edit', [DeviceController::class, 'edit'])->name('admin.device.edit');

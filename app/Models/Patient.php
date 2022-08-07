@@ -15,4 +15,9 @@ class Patient extends Model
         'age',
         'patient_number'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
