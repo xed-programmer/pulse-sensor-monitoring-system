@@ -4,26 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pulse Monitoring System</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">    
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">    
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">    
     <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
-    @stack('links')
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-    <!-- overlayScrollbars -->
+    @stack('links')    
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">    
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
 </head>
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
-
-        <!-- Preloader -->
+        
         @yield('preload')
         
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -50,6 +43,9 @@
                       <!-- Right navbar links -->
                       <ul class="navbar-nav ml-auto">
                         @auth
+                            <li class="nav-item d-none d-sm-inline-block">
+                                <a href="{{ route('user.index') }}" class="nav-link">Patients</a>
+                            </li>
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <input type="submit" value="Logout" class="btn">
@@ -91,16 +87,12 @@
 
     </div>
     <!-- ./wrapper -->
-
-    <!-- jQuery -->
+    
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-
-    <!-- Bootstrap 4 -->
+    
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>    
     <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
     @if (session()->has('message'))

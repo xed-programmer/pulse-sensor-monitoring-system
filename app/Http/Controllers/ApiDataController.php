@@ -7,8 +7,6 @@ use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\isNull;
-
 class ApiDataController extends Controller
 {
     private $api_key_value = 'tPmAT5Ab3j7F9';
@@ -73,7 +71,7 @@ class ApiDataController extends Controller
 
         if($request->api_key != $this->api_key_value){
             echo [];
-        }        
+        }
         $patients = $user->patients()->get();        
         $value = [];
         foreach($patients as $d){
