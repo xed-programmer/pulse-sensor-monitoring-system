@@ -32,4 +32,17 @@ class UserController extends Controller
 
         return redirect()->route('user.index');
     }
+
+    public function removePatient(Request $request)
+    {
+        $res = auth()->user()->patients()->detach($request->id);
+        if($res){
+            $request->session()->flash('message', 'Patient Removed Successfully');
+            $request->session()->flash('result', 'success');
+        }else{
+            $request->session()->flash('message', 'Patient Removed Unsuccessfully!');
+            $request->session()->flash('result', 'error');
+        }
+        return redirect()->route('user.index');
+    }
 }

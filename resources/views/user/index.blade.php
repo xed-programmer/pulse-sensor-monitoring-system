@@ -3,43 +3,28 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
         <div class="card mt-4">
             <div class="card-header">
-                Patients
+                <h3 class="card-title">Patients</h3>
             </div>
+            <!-- /.card-header -->
             <div class="card-body">
-                <div class="row">                    
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add">Add Patient</button>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- Validation Errors -->
-                        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Devices</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-add">
-                                    Add Device
-                                </button>
-                                <table id="deviceTable" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>PATIENT NUMBER</th>
-                                            <th>NAME</th>
-                                            <th>AGE</th>
-                                            <th>PHONE</th>
-                                            <th>CONTROL</th>
-                                        </tr>
-                                    </thead>        
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>            
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-add">
+                    Add Patient
+                </button>
+                <table id="patientTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>PATIENT NUMBER</th>
+                            <th>NAME</th>
+                            <th>AGE</th>
+                            <th>PHONE</th>
+                            <th>CONTROL</th>
+                        </tr>
+                    </thead>        
+                </table>
+            </div>           
         </div>
     </div>
 </div>
@@ -78,11 +63,11 @@
 <x-data-table-scripts/>
 <script>
     $(function () {
-        $("#deviceTable").DataTable({
+        $("#patientTable").DataTable({
           "responsive": true, "lengthChange": false, "autoWidth": false,
           ajax:{
             method:"POST",
-            url: "{{ route('device.data') }}",
+            url: "{{ route('user.patient.data', auth()->user()) }}",
             data:{
               api_key:"tPmAT5Ab3j7F9"
             }
@@ -91,17 +76,18 @@
             {'data': 1},
             {'data': 2},
             {'data': 3},
+            {'data': 4},
             {
               'data': 0,
               'render':function(data,type,row,meta){
-                return `<form action="{{ route("admin.device.delete") }}" method="POST" onsubmit="return confirm('Do you want to delete this device?');"> @csrf @method("DELETE") <input type="hidden" name="id" value='+data+'> <input type="button" id="btn_edit_device" data-toggle="modal" data-target="#modal-edit" data-device-id="${data}" class="btn bg-warning" value="Edit"> <input type="submit" class="btn bg-danger" value="Delete"> </form>`
+                return `<form action="{{ route("user.patient.delete") }}" method="POST" onsubmit="return confirm('Do you want to remove this patient?');"> @csrf @method("DELETE") <input type="hidden" name="id" value=${data}> <input type="submit" class="btn bg-danger" value="Remove"> </form>`
               }
             },
           ]
         });
 
         setInterval(() => {            
-            $("#deviceTable").DataTable().ajax.reload();
+            $("#patientTable").DataTable().ajax.reload();
         }, 3000);
       });    
 </script>

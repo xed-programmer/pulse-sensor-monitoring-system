@@ -43,6 +43,7 @@ Route::group(['prefix'=>'user', 'as'=>'user.'], function(){
 
     Route::group(['prefix'=>'patient', 'as'=>'patient.'], function(){
         Route::get('/', [UserController::class,'showPatient'])->name('show');
-        Route::post('/', [UserController::class,'storePatient'])->name('store');
+        Route::post('/', [UserController::class,'storePatient'])->name('store');        
+        Route::delete('/', [UserController::class,'removePatient'])->name('delete');        
     });
 });

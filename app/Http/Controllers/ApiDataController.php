@@ -7,6 +7,8 @@ use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class ApiDataController extends Controller
 {
     private $api_key_value = 'tPmAT5Ab3j7F9';
@@ -24,7 +26,13 @@ class ApiDataController extends Controller
         $devices = Device::all();
         $value = [];
         foreach($devices as $d){
-            array_push($value,[$d['id'],$d['name'],$d['machine_number'],$d['patient']['name']]);
+            $patient_name = "";
+            if(empty($d['patient']['name']) || !isset($d['patient']['name'])){
+                $patient_name = "";
+            }else{
+                $patient_name = $d['patient']['name'];
+            }
+            array_push($value,[$d['id'],$d['name'],$d['machine_number'],$patient_name]);
         }
         $len = $devices->count();
         $jsonData = [
@@ -57,19 +65,16 @@ class ApiDataController extends Controller
         echo json_encode($jsonData);
     }
 
-    public function getUserPatients(Request $request)
+    public function getUserPatients(Request $request, User $user)
     {
-        // $request->validate([
-        //     'api_key'=>['required']
-        // ]);
+        $request->validate([
+            'api_key'=>['required']
+        ]);
 
-        // if($request->api_key != $this->api_key_value){
-        //     echo [];
-        // }
-
-        dd($request);
-        $patients = Patient::with('users')->whereBelongsto(auth()->user())->firstOrFail();
-        dd($patients);
+        if($request->api_key != $this->api_key_value){
+            echo [];
+        }        
+        $patients = $user->patients()->get();        
         $value = [];
         foreach($patients as $d){
             array_push($value,[$d['id'],$d['patient_number'],$d['name'],$d['age'],$d['phone']]);
