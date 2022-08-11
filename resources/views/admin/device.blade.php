@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @push('links')
-<link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
 <x-data-table-links />
 @endpush
 
@@ -46,28 +45,6 @@
                             <th>CONTROL</th>
                         </tr>
                     </thead>
-                    {{-- <tbody>
-                        @foreach ($devices as $device)
-                        <tr>
-                            <th>{{ $device->name }}</th>
-                            <th>{{ $device->machine_number }}</th>
-                            <th>
-                                @if(!empty($device->patient->name))
-                                {{ $device->patient->name }}
-                                @endif
-                            </th>
-                            <th>
-                                <form action="{{ route('admin.device.delete', $device) }}" method="POST"
-                                    onsubmit="return confirm('Do you want to delete this device?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="button" id="btn_edit_device" data-toggle="modal" data-target="#modal-edit" data-device-id="{{ $device->id }}" class="btn bg-warning" value="Edit">
-                                    <input type="submit" class="btn bg-danger" value="Delete">
-                                </form>
-                            </th>
-                        </tr>
-                        @endforeach
-                    </tbody> --}}
                 </table>
             </div>
         </div>
@@ -151,20 +128,6 @@
 @endsection
 
 @push('scripts')
-<!-- Toastr -->
-<script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
-@if (session()->has('message'))
-    @if(session()->get('result') == "success")
-        <script>
-            toastr.success("{{ session()->get('message') }}")
-        </script>
-    @else
-        <script>
-            toastr.error("{{ session()->get('message') }}")
-        </script>
-    @endif
-@endif
-
 <script>
     $(function(){
         $('body').on('click', '#btn_edit_device', function(){
