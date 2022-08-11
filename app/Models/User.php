@@ -43,6 +43,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function hasRole($role)
+    {
+        $role = Role::where('name', $role)->first();        
+        return $role->id == auth()->user()->role_id;
+    }
+
     public function patients()
     {
         return $this->belongsToMany(Patient::class);

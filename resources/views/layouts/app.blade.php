@@ -42,9 +42,14 @@
                       <!-- Right navbar links -->
                       <ul class="navbar-nav ml-auto">
                         @auth
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <a href="{{ route('user.index') }}" class="nav-link">Patients</a>
+                        </li>
+                        @if(auth()->user()->hasRole('admin'))
                             <li class="nav-item d-none d-sm-inline-block">
-                                <a href="{{ route('user.index') }}" class="nav-link">Patients</a>
-                            </li>
+                                <a href="{{ route('admin.index') }}" class="nav-link">Admin</a>
+                            </li>                                
+                        @endif
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <input type="submit" value="Logout" class="btn">
