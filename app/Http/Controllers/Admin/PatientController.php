@@ -29,6 +29,7 @@ class PatientController extends Controller
         $unique_id = null;
         do {
             $unique_id = uniqid('P-');
+            $unique_id = strtoupper($unique_id);
             $patient = Patient::where('patient_number', $unique_id)->get();
         } while ($patient->count()>0);
         

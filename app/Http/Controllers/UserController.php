@@ -13,6 +13,14 @@ class UserController extends Controller
         return view('user.index');
     }
 
+    public function showPatient(Request $request)
+    {
+        if(!$request->has('id')){
+            return redirect()->route('user.index');
+        }
+        return view('user.patient')->with('patient_id', $request->id);
+    }
+
     public function storePatient(Request $request)
     {
         $user = User::find(auth()->user()->id);

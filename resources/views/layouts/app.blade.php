@@ -7,8 +7,7 @@
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">    
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">    
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">    
-    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
     @stack('links')    
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">    
@@ -70,7 +69,7 @@
 
             <!-- Main content -->
             <section class="content">
-                <div class="container-fluid">                    
+                <div class="container">                    
                     @yield('content')
                 </div>
             </section>
@@ -92,8 +91,7 @@
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>    
-    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
     <!-- Toastr -->
     <x-toastr-links/>
     @stack('scripts')

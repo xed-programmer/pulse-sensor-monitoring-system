@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
+use App\Models\Patient;
 use App\Models\Pulse;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PulseDataController extends Controller
@@ -48,5 +50,14 @@ class PulseDataController extends Controller
             array_push($array_pulse, $pulse);
         }        
         echo json_encode($array_pulse);
+    }
+
+    public function getUserPatientPulse($id)
+    {        
+        $pulse = Pulse::with(['patient'])
+        ->where('patient_id', $id)
+        ->limit(10)
+        ->get();        
+        echo json_encode($pulse);
     }
 }
