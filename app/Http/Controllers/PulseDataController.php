@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\PulseReportSendEmail;
 use App\Models\Device;
 use App\Models\Patient;
 use App\Models\Pulse;
@@ -20,6 +21,9 @@ class PulseDataController extends Controller
             'spo2'=>'required'
         ]);
 
+        $hr = $request->hr;
+        $spo2 = $request->spo2;
+
         if($request->api_key != $this->api_key_value){
             echo "api is invalid";
         }
@@ -28,9 +32,26 @@ class PulseDataController extends Controller
         Pulse::create([
             'device_id'=>$device->id,
             'patient_id'=>$device->patient_id,
-            'hr'=>$request->hr,
-            'spo2'=>$request->spo2
+            'hr'=>$hr,
+            'spo2'=>$spo2
         ]);
+
+        if($hr > 100 || $hr < 60 || $spo2 < 90){     
+            echo "sending email";
+            $details = (Object) Array();
+
+            $users = User::whereHas('patients', function($q) use ($device){
+                $q->where('patient_id', $device->patient_id);
+            })->get();
+
+            foreach($users as $user){
+                $details->user = $user;
+                $details->hr = $hr;
+                $details->spo2 = $spo2;
+                
+                PulseReportSendEmail::dispatch($details);                
+            }
+        }
         echo "ok";
     }
 
