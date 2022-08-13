@@ -8,11 +8,13 @@
 </head>
 <body>
 <h1>Pulse Report</h1>
-<h2>{{ $details->user->created_at->format('MMMM DD, YYYY hh:mm:s A') }}</h2>
+<h2>{{ $details->user->created_at->format('M d, Y h:m:s A') }}</h2>
 <table>
 <tr>
-<td><h2>{{ $details->hr }}</h2> bpm</td>
-<td>SPO2 <h2>{{ $details->spo2 }}</h2>%</td>
+<td><p><strong>{{ $details->hr }}</strong> <span>bpm</span></p></td>
+</tr>
+<tr>
+<td><p>SPO2 <strong>{{ $details->spo2 }}</strong>%</p></td>
 </tr>
 </table>
 
@@ -32,8 +34,10 @@ normal
 Patient's oxygen saturation level is         
 @if ($details->spo2 < 90)
 below 90%.
-@endif
 The patient should visit a doctor immediately.
+@else
+{{ $details->spo2 }}
+@endif
 </p> <br>
 
 Truly,<br>

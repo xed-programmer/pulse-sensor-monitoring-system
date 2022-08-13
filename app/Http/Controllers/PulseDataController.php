@@ -64,6 +64,7 @@ class PulseDataController extends Controller
             $pulse = Pulse::with(['patient'])
             ->where('patient_id', $d['patient_id'])
             ->where('device_id', $d['id'])
+            ->latest()
             ->limit(10)
             ->get()
             ->groupBy('device_id');
@@ -77,8 +78,9 @@ class PulseDataController extends Controller
     {        
         $pulse = Pulse::with(['patient'])
         ->where('patient_id', $id)
-        ->limit(10)
-        ->get();        
+        ->latest()
+        ->limit(10)        
+        ->get();
         echo json_encode($pulse);
     }
 }
