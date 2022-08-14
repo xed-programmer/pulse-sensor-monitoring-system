@@ -20,7 +20,7 @@
 <body class="hold-transition register-page">
     <div class="register-box">
       <div class="register-logo">
-        <a href="{{ route('home') }}"><b>Pulse Sensor</b> Monitoring System</a>
+        <a href="{{ route('home') }}"><b>BOOM</b> Dev</a>
       </div>
     
       <div class="card">
