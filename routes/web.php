@@ -15,9 +15,8 @@ Auth::routes();
 // });
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
-    Route::get('/', [AdminController::class, 'index'])->name('index');
-    Route::get('/data', [PulseDataController::class, 'getPatientPulse']);
+Route::group(['middleware'=>['checkrole:admin'],'prefix'=>'admin', 'as'=>'admin.'], function(){
+    Route::get('/', [AdminController::class, 'index'])->name('index');    
     
     // Device 
     Route::group(['prefix'=>'device', 'as'=>'device.'], function(){
@@ -40,8 +39,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
 
 Route::group(['prefix'=>'user', 'as'=>'user.'], function(){
     Route::get('/', [UserController::class, 'index'])->name('index');
-
-
+    
     Route::group(['prefix'=>'patient', 'as'=>'patient.'], function(){
         Route::get('/', [UserController::class,'showPatient'])->name('show');
         Route::post('/', [UserController::class,'storePatient'])->name('store');        
