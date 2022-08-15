@@ -62,9 +62,9 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="{{ route('home') }}">Home</a></li>
-          <li><a class="nav-link scrollto" href="{{ route('home') }}#about">About</a></li>
-          <li><a class="nav-link scrollto" href="{{ route('home') }}#contact">Contact</a></li>
+          <li><a class="nav-link active" href="{{ route('home') }}">Home</a></li>
+          <li><a class="nav-link" href="{{ route('home') }}#about">About</a></li>
+          <li><a class="nav-link" href="{{ route('home') }}#contact">Contact</a></li>
           @auth
           <li>
             <a href="{{ route('user.index') }}" class="nav-link">Patients</a>
@@ -120,7 +120,7 @@
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#hero">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#contact">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
             </ul>
           </div>
 
