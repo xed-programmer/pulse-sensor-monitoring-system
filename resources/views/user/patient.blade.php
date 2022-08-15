@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-<section class="inner-page">
+<section class="inner-page" style="min-height: 80vh">
     <div class="container">
         <div class="row">
             <div class="col-md-12">        

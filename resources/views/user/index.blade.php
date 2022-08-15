@@ -21,7 +21,7 @@
 @endsection
 
 @section('content')
-<section class="inner-page">
+<section class="inner-page" style="min-height: 80vh">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -31,7 +31,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modal">
+                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-add">
                             Add Patient
                         </button>
                         <table id="patientTable" class="table table-bordered table-striped">
@@ -52,8 +52,11 @@
     </div>
     </div>
 </section>
-<div class="modal fade" id="modal">
-    <div class="modal-dialog">
+@endsection
+
+@section('modals')
+<div class="modal" id="modal-add" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content bg-info">
             <div class="modal-header">
                 <h4 class="modal-title">Add Patient</h4>
@@ -72,14 +75,12 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-outline-light">Save</button>
+                    <button type="submit" class="btn btn-outline-light">Add</button>
                 </div>
             </form>
         </div>        
     </div>    
 </div>
-
-
 @endsection
 
 @push('scripts')

@@ -18,7 +18,6 @@
   <link
     href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
     rel="stylesheet">
-
   <!-- Vendor CSS Files -->
   <link href="{{ asset('BizLand/assets/vendor/aos/aos.css') }}" rel="stylesheet">
   <link href="{{ asset('BizLand/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">  
@@ -30,7 +29,6 @@
 
   @stack('links')
   <!-- Template Main CSS File -->
-  <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <link href="{{ asset('BizLand/assets/css/style.css') }}" rel="stylesheet">
 
 </head>
@@ -58,15 +56,15 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="index.html">Boom Dev<span>.</span></a></h1>
+      <h1 class="logo"><a href="{{ route('home') }}">Boom Dev<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto active" href="{{ route('home') }}">Home</a></li>
+          <li><a class="nav-link scrollto" href="{{ route('home') }}#about">About</a></li>
+          <li><a class="nav-link scrollto" href="{{ route('home') }}#contact">Contact</a></li>
           @auth
           <li>
             <a href="{{ route('user.index') }}" class="nav-link">Patients</a>
@@ -100,6 +98,7 @@
   <main id="main" data-aos="fade-up">
     @yield('content')
   </main>
+  @yield('modals')
   <!-- ======= Footer ======= -->
   <footer id="footer">
 
@@ -156,9 +155,10 @@
   <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
   {{-- <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-
+  
+  {{-- <script src="{{ asset('BizLand/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script> --}}
+  <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('BizLand/assets/vendor/aos/aos.js')}}"></script>
-  <script src="{{ asset('BizLand/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{ asset('BizLand/assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
   <script src="{{ asset('BizLand/assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
   <script src="{{ asset('BizLand/assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
