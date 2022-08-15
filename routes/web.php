@@ -39,7 +39,8 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
 });
 
 Route::group(['prefix'=>'user', 'as'=>'user.'], function(){
-    Route::get('/', [UserController::class, 'index'])->name('index');    
+    Route::get('/', [UserController::class, 'index'])->name('index');
+
 
     Route::group(['prefix'=>'patient', 'as'=>'patient.'], function(){
         Route::get('/', [UserController::class,'showPatient'])->name('show');

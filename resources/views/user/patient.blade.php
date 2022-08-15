@@ -1,41 +1,42 @@
 @extends('layouts.app')
 
 @section('header')
-<div class="content-header">
+<section class="breadcrumbs">
     <div class="container">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                {{-- <h1 class="m-0">User</h1> --}}
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('user.index') }}">User</a></li>
-                    <li class="breadcrumb-item active">Patient</li>
-                </ol>
-            </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+            {{-- <h2>Inner Page</h2> --}}
+            <ol>
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li><a href="{{ route('user.index') }}">User</a></li>
+                <li>Patient</li>
+            </ol>
         </div>
+
     </div>
-</div>
+</section>
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">        
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Patient</h3>
-            </div>            
-            <div class="card-body">
-                <div class="chart">
-                    <canvas id="lineChart"
-                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+<section class="inner-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">        
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Patient</h3>
+                    </div>            
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="lineChart"
+                                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                    </div>           
                 </div>
-            </div>           
+            </div>
         </div>
     </div>
-</div>
-
+</section>
 @endsection
 
 @push('scripts')
