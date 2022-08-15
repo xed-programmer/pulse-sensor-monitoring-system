@@ -156,7 +156,7 @@
 <script>
     $(function () {
         $("#deviceTable").DataTable({
-          "responsive": true, "lengthChange": false, "autoWidth": false,
+          "responsive": true, "lengthChange": false, "autoWidth": false,order:[],
           ajax:{
             method:"POST",
             url: "{{ route('device.data') }}",
@@ -171,7 +171,7 @@
             {
               'data': 0,
               'render':function(data,type,row,meta){
-                return `<form action="{{ route("admin.device.delete") }}" method="POST" onsubmit="return confirm('Do you want to delete this device?');"> @csrf @method("DELETE") <input type="hidden" name="id" value='+data+'> <input type="button" id="btn_edit_device" data-toggle="modal" data-target="#modal-edit" data-device-id="${data}" class="btn bg-warning" value="Edit"> <input type="submit" class="btn bg-danger" value="Delete"> </form>`
+                return `<form action="{{ route("admin.device.delete") }}" method="POST" onsubmit="return confirm('Do you want to delete this device?');"> @csrf @method("DELETE") <input type="hidden" name="id" value=${data}> <input type="button" id="btn_edit_device" data-toggle="modal" data-target="#modal-edit" data-device-id="${data}" class="btn bg-warning" value="Edit"> <input type="submit" class="btn bg-danger" value="Delete"> </form>`
               }
             },
           ]

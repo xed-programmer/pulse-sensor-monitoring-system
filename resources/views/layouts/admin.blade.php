@@ -63,7 +63,7 @@
                         <img src="{{ asset('dist/img/avatar5.png') }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Dexter Aragon</a>
+                        <a href="#" class="d-block">{{ auth()->user()->name }}</a>
                     </div>
                 </div>
 
@@ -86,6 +86,12 @@
                             <a href="{{ route('admin.device.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-laptop-medical"></i>
                                 <p>Device</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.user.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Users</p>
                             </a>
                         </li>
                     </ul>

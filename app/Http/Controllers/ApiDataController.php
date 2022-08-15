@@ -84,4 +84,27 @@ class ApiDataController extends Controller
             "data"=>$value];
         echo json_encode($jsonData);
     }
+
+    public function getUsers(Request $request)
+    {
+        $request->validate([
+            'api_key'=>['required']
+        ]);
+
+        if($request->api_key != $this->api_key_value){
+            echo [];
+        }
+
+        $users = User::with('role')->orderBy('role_id', 'ASC')->get();
+        $value = [];
+        foreach($users as $d){
+            array_push($value,[$d['id'],$d['name'],$d['email'],$d['role']['name'], $d['role_id']]);
+        }
+        $len = $users->count();
+        $jsonData = [
+            "recordsTotal"=>$len,
+            "recordsFiltered"=>$len,
+            "data"=>$value];
+        echo json_encode($jsonData);
+    }
 }

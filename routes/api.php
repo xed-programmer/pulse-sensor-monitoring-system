@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\PatientController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ApiDataController;
 use App\Http\Controllers\PulseDataController;
 use Illuminate\Http\Request;
@@ -29,7 +30,9 @@ Route::post('device-data', [ApiDataController::class, 'getDevices'])->name('devi
 Route::post('patient-data', [ApiDataController::class, 'getPatients'])->name('patient.data');
 Route::post('user-patient-data/{user}', [ApiDataController::class, 'getUserPatients'])->name('user.patient.data');
 Route::post('user-patient-pulse/{id}', [PulseDataController::class, 'getUserPatientPulse'])->name('user.patient.pulse');
+Route::post('user-data', [ApiDataController::class, 'getUsers'])->name('user.data');
 
 
 Route::get('admin/device/edit', [DeviceController::class, 'edit'])->name('admin.device.edit');
 Route::get('admin/patient/edit', [PatientController::class, 'edit'])->name('admin.patient.edit');
+Route::get('admin/User/edit', [UserController::class, 'edit'])->name('admin.user.edit');

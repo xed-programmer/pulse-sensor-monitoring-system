@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\PatientController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PulseDataController;
 use App\Http\Controllers\UserController;
@@ -35,11 +36,20 @@ Route::group(['middleware'=>['checkrole:admin'],'prefix'=>'admin', 'as'=>'admin.
         Route::put('/', [PatientController::class, 'update'])->name('update');
         Route::delete('/', [PatientController::class, 'destroy'])->name('delete');
     });
+
+    // User
+    Route::group(['prefix'=>'user', 'as'=>'user.'], function(){
+        Route::get('/', [AdminUserController::class, 'index'])->name('index');
+        Route::post('/', [AdminUserController::class, 'store'])->name('store');
+        // Route::get('/{device}', [AdminUserController::class, 'edit'])->name('edit');
+        Route::put('/', [AdminUserController::class, 'update'])->name('update');
+        Route::delete('/', [AdminUserController::class, 'destroy'])->name('delete');
+    });
 });
 
 Route::group(['prefix'=>'user', 'as'=>'user.'], function(){
     Route::get('/', [UserController::class, 'index'])->name('index');
-    
+
     Route::group(['prefix'=>'patient', 'as'=>'patient.'], function(){
         Route::get('/', [UserController::class,'showPatient'])->name('show');
         Route::post('/', [UserController::class,'storePatient'])->name('store');        
