@@ -54,8 +54,9 @@
                 let datas = JSON.parse(data)                
                 let labels = []
                 let hr = []
-                let spo2 = []
-                for(var i = 0; i<datas.length; i++){                                          
+                let spo2 = []             
+                // sort the data from old to latest data   
+                for(var i = datas.length-1; i>=0; i--){
                     let tempData = datas[i]                    
                     labels.push(new moment(tempData['created_at']).format('MMM Do YYYY h:mm:ss a'))
                     hr.push(tempData['hr'])

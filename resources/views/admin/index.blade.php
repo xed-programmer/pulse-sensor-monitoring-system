@@ -78,7 +78,7 @@
                         let labels = []
                         let hr = []
                         let spo2 = []
-                        for (let i = 0; i < tempData.length; i++) {                        
+                        for (let i = tempData.length-1; i >=0 ; i--) {                        
                             labels.push(new moment(tempData[i]['created_at']).format('MMM Do YYYY h:mm:ss a'))
                             hr.push(tempData[i]['hr'])
                             spo2.push(tempData[i]['spo2'])
