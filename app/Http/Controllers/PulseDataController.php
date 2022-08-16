@@ -15,41 +15,46 @@ class PulseDataController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'api_key'=>'required',
-            'id'=>['required','exists:devices,machine_number'],
-            'hr'=>'required',
-            'spo2'=>'required'
+            'api_key' => 'required',
+            'id' => ['required', 'exists:devices,machine_number'],
+            'hr' => 'required',
+            'spo2' => 'required'
         ]);
 
         $hr = $request->hr;
         $spo2 = $request->spo2;
 
-        if($request->api_key != $this->api_key_value){
+        if ($request->api_key != $this->api_key_value) {
             echo "api is invalid";
         }
 
-        $device = Device::where('machine_number', $request->id)->firstOrFail();            
+        $device = Device::where('machine_number', $request->id)->firstOrFail();
         Pulse::create([
-            'device_id'=>$device->id,
-            'patient_id'=>$device->patient_id,
-            'hr'=>$hr,
-            'spo2'=>$spo2
+            'device_id' => $device->id,
+            'patient_id' => $device->patient_id,
+            'hr' => $hr,
+            'spo2' => $spo2
         ]);
 
-        if($hr > 100 || $hr < 60 || $spo2 < 90){     
+        if ($hr > 100 || $hr < 60 || $spo2 < 90) {
             echo "sending email";
-            $details = (Object) Array();
+            $details = (object) array();
 
-            $users = User::whereHas('patients', function($q) use ($device){
+            $users = User::whereHas('patients', function ($q) use ($device) {
                 $q->where('patient_id', $device->patient_id);
             })->get();
 
-            foreach($users as $user){
-                $details->user = $user;
-                $details->hr = $hr;
-                $details->spo2 = $spo2;
-                
-                PulseReportSendEmail::dispatch($details);                
+            foreach ($users as $user) {
+                $currentTime = now();
+                if (empty($user->email_sent) || $currentTime->diffInMinutes($user->email_sent) > 3) {
+                    $details->user = $user;
+                    $details->hr = $hr;
+                    $details->spo2 = $spo2;
+                    
+                    PulseReportSendEmail::dispatch($details);
+                    $user->email_sent = $currentTime;
+                    $user->save();
+                }
             }
         }
         echo "ok";
@@ -62,25 +67,25 @@ class PulseDataController extends Controller
 
         foreach ($devices as $d) {
             $pulse = Pulse::with(['patient'])
-            ->where('patient_id', $d['patient_id'])
-            ->where('device_id', $d['id'])
-            ->latest()
-            ->limit(10)
-            ->get()
-            ->groupBy('device_id');
+                ->where('patient_id', $d['patient_id'])
+                ->where('device_id', $d['id'])
+                ->latest()
+                ->limit(10)
+                ->get()
+                ->groupBy('device_id');
             // $array_pulse = $pulse;
             array_push($array_pulse, $pulse);
-        }        
+        }
         echo json_encode($array_pulse);
     }
 
     public function getUserPatientPulse($id)
-    {        
+    {
         $pulse = Pulse::with(['patient'])
-        ->where('patient_id', $id)
-        ->latest()
-        ->limit(10)        
-        ->get();
+            ->where('patient_id', $id)
+            ->latest()
+            ->limit(10)
+            ->get();
         echo json_encode($pulse);
     }
 }
