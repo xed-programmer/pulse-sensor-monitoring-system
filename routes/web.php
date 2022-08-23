@@ -7,11 +7,15 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PulseDataController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/queue-work', function(){
+    echo Artisan::call('queue:work --stop-when-empty');
+});
 // Route::group(['middleware'=>['auth']], function (){
 // });
 Route::get('/', [HomeController::class, 'index'])->name('home');

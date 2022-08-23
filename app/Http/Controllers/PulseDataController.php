@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\PulseReportSendEmail;
+use App\Mail\QueuePulseReportEmail;
 use App\Models\Device;
 use App\Models\Patient;
 use App\Models\Pulse;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PulseDataController extends Controller
 {
@@ -51,7 +53,9 @@ class PulseDataController extends Controller
                     $details->hr = $hr;
                     $details->spo2 = $spo2;
                     
-                    PulseReportSendEmail::dispatch($details);
+                    // PulseReportSendEmail::dispatch($details);
+                    Mail::to($details->user->email)
+                    ->send(new QueuePulseReportEmail($details));
                     $user->email_sent = $currentTime;
                     $user->save();
                 }
