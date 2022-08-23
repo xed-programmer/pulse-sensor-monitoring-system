@@ -20,12 +20,12 @@
     rel="stylesheet">
   <!-- Vendor CSS Files -->
   <link href="{{ asset('BizLand/assets/vendor/aos/aos.css') }}" rel="stylesheet">
-  <link href="{{ asset('BizLand/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">  
+  <link href="{{ asset('BizLand/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('BizLand/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
   <link href="{{ asset('BizLand/assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
   <link href="{{ asset('BizLand/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
   <link href="{{ asset('BizLand/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">  
+  <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
 
   @stack('links')
   <!-- Template Main CSS File -->
@@ -74,10 +74,23 @@
             <a href="{{ route('admin.index') }}" class="nav-link">Admin</a>
           </li>
           @endif
-          <form action="{{ route('logout') }}" method="post">
-            @csrf
-            <input type="submit" value="Logout" class="btn">
-          </form>
+          <li class="dropdown"><a href="#"><span>{{ Str::limit(Auth::user()->name,15) }}</span> <i
+                class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="{{ route('profile.index') }}">
+                 <p>Your Profile
+                  <br>
+                {{ Str::limit(Auth::user()->email, 22) }}</a></li>
+                 </p>
+              <li>
+                <form action="{{ route('logout') }}" method="post">
+                  @csrf
+                  <input type="submit" value="Logout" class="btn btn-light btn-block">
+                </form>
+              </li>
+            </ul>
+          </li>
+
           @else
           <li>
             <a href="{{ route('login') }}" class="nav-link">Login</a>
@@ -155,7 +168,7 @@
   <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
   {{-- <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
-  
+
   {{-- <script src="{{ asset('BizLand/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script> --}}
   <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('BizLand/assets/vendor/aos/aos.js')}}"></script>
