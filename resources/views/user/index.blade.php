@@ -110,9 +110,9 @@
           ]
         });
 
-        // setInterval(() => {            
-        //     $("#patientTable").DataTable().ajax.reload();
-        // }, 3000);
+        setInterval(() => {            
+            $("#patientTable").DataTable().ajax.reload();
+        }, 3000);
       });    
 </script>
 @endpush
