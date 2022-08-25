@@ -40,8 +40,8 @@
     <div class="container d-flex justify-content-center justify-content-md-between">
       <div class="contact-info d-flex align-items-center">
         <i class="bi bi-envelope d-flex align-items-center"><a
-            href="mailto:dexterdaaragon@gmail.com">dexterdaaragon@gmail.com</a></i>
-        <i class="bi bi-phone d-flex align-items-center ms-4"><span>09510592362</span></i>
+            href="mailto:Aeb201533000@gmail.com">Aeb201533000@gmail.com</a></i>
+        <i class="bi bi-phone d-flex align-items-center ms-4"><span>09206890801</span></i>
       </div>
       <div class="social-links d-none d-md-flex align-items-center">
         <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -124,7 +124,7 @@
             <p>
               Mabalacat, Pampanga <br>
               Brgy. Dolores multipurpose hall<br>
-              <strong>Phone:</strong> 09510592362<br>
+              <strong>Phone:</strong> 09206890801<br>
               <strong>Email:</strong> info@example.com<br>
             </p>
           </div>

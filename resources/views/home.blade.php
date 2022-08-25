@@ -99,7 +99,7 @@
         <div class="info-box  mb-4">
           <i class="bx bx-envelope"></i>
           <h3>Email Us</h3>
-          <p>dexterdaaragon@gmail.com</p>
+          <p>Aeb201533000@gmail.com</p>
         </div>
       </div>
 
@@ -107,7 +107,7 @@
         <div class="info-box  mb-4">
           <i class="bx bx-phone-call"></i>
           <h3>Call Us</h3>
-          <p>09510592362</p>
+          <p>09206890801</p>
         </div>
       </div>
 

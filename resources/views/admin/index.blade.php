@@ -25,6 +25,22 @@
 
 @section('content')
 <div class="row">
+    <div class="col-12 col-sm-6 col-md-3">        
+        <div class="info-box">            
+            <input type="text" class="knob" value="80" data-skin="tron" data-thickness="0.2" data-width="90"
+            data-height="90" data-fgColor="#3c8dbc" data-readonly="true" disabled>
+
+            <div class="info-box-content">
+              <span class="info-box-text">CPU Traffic</span>
+              <span class="info-box-number">
+                10
+                <small>%</small>
+              </span>
+            </div>            
+        </div>
+    </div>
+</div>
+<div class="row">
     @forelse ($devices as $i => $device)
     <div class="col-md-12">
         <div class="card card-info">
@@ -55,6 +71,7 @@
     </div>
     @endforelse
 </div>
+
 @endsection
 
 @push('scripts')
@@ -169,4 +186,73 @@
         }, 3000);
     })
 </script>
+<script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+<script>
+    $(function () {
+      /* jQueryKnob */
+  
+      $('.knob').knob({
+        /*change : function (value) {
+         //console.log("change : " + value);
+         },
+         release : function (value) {
+         console.log("release : " + value);
+         },
+         cancel : function () {
+         console.log("cancel : " + this.value);
+         },*/
+        draw: function () {
+  
+          // "tron" case
+          if (this.$.data('skin') == 'tron') {
+  
+            var a   = this.angle(this.cv)  // Angle
+              ,
+                sa  = this.startAngle          // Previous start angle
+              ,
+                sat = this.startAngle         // Start angle
+              ,
+                ea                            // Previous end angle
+              ,
+                eat = sat + a                 // End angle
+              ,
+                r   = true
+  
+            this.g.lineWidth = this.lineWidth
+  
+            this.o.cursor
+            && (sat = eat - 0.3)
+            && (eat = eat + 0.3)
+  
+            if (this.o.displayPrevious) {
+              ea = this.startAngle + this.angle(this.value)
+              this.o.cursor
+              && (sa = ea - 0.3)
+              && (ea = ea + 0.3)
+              this.g.beginPath()
+              this.g.strokeStyle = this.previousColor
+              this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false)
+              this.g.stroke()
+            }
+  
+            this.g.beginPath()
+            this.g.strokeStyle = r ? this.o.fgColor : this.fgColor
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false)
+            this.g.stroke()
+  
+            this.g.lineWidth = 2
+            this.g.beginPath()
+            this.g.strokeStyle = this.o.fgColor
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false)
+            this.g.stroke()
+  
+            return false
+          }
+        }
+      })
+      /* END JQUERY KNOB */
+  
+    })
+  
+  </script>
 @endpush
