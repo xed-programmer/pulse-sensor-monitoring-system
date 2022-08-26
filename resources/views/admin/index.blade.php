@@ -74,12 +74,34 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalEmergency">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Emergency Alert</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center" id="modal-body">          
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>          
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
 @endsection
 
 @push('scripts')
+<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
 <script>
     $(function () {
         function getPatientLatestPulse(){
+            var isAlert = false
+            var message = ''
             $.when($.ajax({
                 method:'POST',
                 url: '{{ route("latest.patient.pulse") }}'
@@ -88,16 +110,33 @@
                 let datas = JSON.parse(data)                
                 for(var i = 0; i<datas.length; i++){
                     Object.keys(datas[i]).forEach(key => {
-                        let tempData = datas[i][key][0]
-                        console.log(tempData);
+                        let tempData = datas[i][key][0]                        
                         $('#name'+i).text(tempData['patient']['name'])
                         $('#device'+i).val(tempData['spo2'])
                         $('#device'+i).trigger('change')
                         $('#spo2'+i).text(tempData['spo2'])
                         $('#hr'+i).text(tempData['hr'])
+                        var condition = '';
+                        if(tempData['spo2'] > tempData['spo2_limit']){
+                            condition='NORMAL'                              
+                        }else{
+                            condition='SEVERE'
+                            isAlert = true
+                            message += '<br><h1>'+tempData['patient']['name'] +' IS IN CRITICAL CONDITION</h1><br>'+
+                                '<h3>SpO2 Level: ' + tempData['spo2'] + '% <br>'+ 
+                                    new moment(tempData['created_at']).format('MMM Do YYYY h:mm:ss a')
+                                    +"</h3>"
+                        }
+                        $('#condition'+i).text(condition)                        
                     });
                 }
+                
+                if(isAlert){                    
+                    $("#modal-body").html(message)
+                    $("#modalEmergency").modal('show')
+                }
             })
+
         }
         
         getPatientLatestPulse()
