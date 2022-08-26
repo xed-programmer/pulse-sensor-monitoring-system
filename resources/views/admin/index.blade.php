@@ -25,20 +25,22 @@
 
 @section('content')
 <div class="row">
-    <div class="col-12 col-sm-6 col-md-3">        
+    @foreach ($devices as $i => $device)
+    <div class="col-12 col-sm-6 col-md-4">        
         <div class="info-box">            
-            <input type="text" class="knob" value="80" data-skin="tron" data-thickness="0.2" data-width="90"
-            data-height="90" data-fgColor="#3c8dbc" data-readonly="true" disabled>
+            <input type="text" id="{{ 'device'.$i }}" class="knob" data-skin="tron" data-thickness="0.2" data-width="90"
+            data-height="90" data-fgColor="#3c8dbc" data-readonly="true">
 
             <div class="info-box-content">
-              <span class="info-box-text">CPU Traffic</span>
-              <span class="info-box-number">
-                10
-                <small>%</small>
-              </span>
+              <span class="info-box-text">Patient: <span id="{{ 'name'.$i }}">Patient Name</span></span>
+              <span class="info-box-text">Condition: <span id="{{ 'condition'.$i }}">Condition</span></span>
+              <span class="info-box-text">SpO2 Level: <span id="{{ 'spo2'.$i }}">SpO2</span><small>%</small></span>
+              <span class="info-box-text">Heart rate: <span id="{{ 'hr'.$i }}">HR</span></span>
+
             </div>            
         </div>
-    </div>
+    </div>        
+    @endforeach
 </div>
 <div class="row">
     @forelse ($devices as $i => $device)
@@ -180,9 +182,31 @@
             })
         }
 
-        getData()
+        function getPatientLatestPulse(){
+            $.when($.ajax({
+                method:'POST',
+                url: '{{ route("latest.patient.pulse") }}'
+            }))
+            .then((data,textStatus,jqXHR)=>{
+                let datas = JSON.parse(data)                
+                for(var i = 0; i<datas.length; i++){
+                    Object.keys(datas[i]).forEach(key => {
+                        let tempData = datas[i][key][0]
+                        console.log(tempData);
+                        $('#name'+i).text(tempData['patient']['name'])
+                        $('#device'+i).val(tempData['spo2'])
+                        $('#device'+i).trigger('change')
+                        $('#spo2'+i).text(tempData['spo2'])
+                        $('#hr'+i).text(tempData['hr'])
+                    });
+                }
+            })
+        }
+        
+        getPatientLatestPulse()
         setInterval(() => {
-            getData()
+            // getData()
+            getPatientLatestPulse()
         }, 3000);
     })
 </script>
@@ -192,15 +216,6 @@
       /* jQueryKnob */
   
       $('.knob').knob({
-        /*change : function (value) {
-         //console.log("change : " + value);
-         },
-         release : function (value) {
-         console.log("release : " + value);
-         },
-         cancel : function () {
-         console.log("cancel : " + this.value);
-         },*/
         draw: function () {
   
           // "tron" case

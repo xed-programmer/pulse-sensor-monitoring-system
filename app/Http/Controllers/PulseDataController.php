@@ -82,6 +82,24 @@ class PulseDataController extends Controller
         }
         echo json_encode($array_pulse);
     }
+    
+    public function getLatestPatientPulse()
+    {
+        $devices = Device::all();
+        $array_pulse = array();
+
+        foreach ($devices as $d) {
+            $pulse = Pulse::with(['patient'])
+                ->where('patient_id', $d['patient_id'])
+                ->where('device_id', $d['id'])
+                ->latest()
+                ->limit(1)
+                ->get()
+                ->groupBy('device_id');
+            array_push($array_pulse, $pulse);
+        }
+        echo json_encode($array_pulse);
+    }
 
     public function getUserPatientPulse($id)
     {
