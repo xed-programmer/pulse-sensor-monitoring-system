@@ -171,7 +171,7 @@
             {
               'data': 0,
               'render':function(data,type,row,meta){
-                return `<form action="{{ route("admin.patient.delete") }}" method="POST" onsubmit="return confirm('Do you want to delete this patient?');"> @csrf @method("DELETE") <input type="hidden" name="id" value="${data}"> <input type="button" id="btn_edit_patient" data-toggle="modal" data-target="#modal-edit" data-patient-id="${data}" class="btn bg-warning" value="Edit"> <input type="submit" class="btn bg-danger" value="Delete"> </form>`
+                return `<form action="{{ route("admin.patient.delete") }}" method="POST" onsubmit="return confirm('Do you want to delete this patient?');"> @csrf @method("DELETE") <input type="hidden" name="id" value="${data}"> <a class="btn bg-success" href="{{ route('admin.patient.show') }}?id=${data}">View</a> <input type="button" id="btn_edit_patient" data-toggle="modal" data-target="#modal-edit" data-patient-id="${data}" class="btn bg-warning" value="Edit"> <input type="submit" class="btn bg-danger" value="Delete"> </form>`
               }
             },
           ]

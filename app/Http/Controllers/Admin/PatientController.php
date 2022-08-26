@@ -13,9 +13,15 @@ class PatientController extends Controller
     public function index()
     {        
         $patients = Patient::all();
-        return view('admin.patient')->with([
+        return view('admin.patient.index')->with([
             'patients'=>$patients
         ]);
+    }
+
+    public function show(Request $request)
+    {
+        $request->validate(['id'=>['required', 'exists:patients,id']]);        
+        return view('admin.patient.show')->with(['patient_id'=>$request->id]);
     }
 
     public function store(Request $request)
