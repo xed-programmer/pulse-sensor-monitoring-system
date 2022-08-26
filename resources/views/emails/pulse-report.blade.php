@@ -32,8 +32,8 @@ normal
 </p> <br>
 <p>
 Patient's oxygen saturation level is         
-@if ($details->spo2 < 90)
-below 90%.
+@if ($details->spo2 < $details->spo2_limit)
+below {{ $details->spo2_limit }}%.
 The patient should visit a doctor immediately.
 @else
 {{ $details->spo2 }}

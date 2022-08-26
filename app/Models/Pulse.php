@@ -13,7 +13,8 @@ class Pulse extends Model
         'device_id',
         'hr',
         'spo2',
-        'patient_id'
+        'patient_id',
+        'spo2_limit'
     ];
 
     public function patient()

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\PulseReportSendEmail;
 use App\Mail\QueuePulseReportEmail;
 use App\Models\Device;
-use App\Models\Patient;
 use App\Models\Pulse;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,15 +14,19 @@ class PulseDataController extends Controller
     private $api_key_value = 'tPmAT5Ab3j7F9';
     public function index(Request $request)
     {
+        // ITO YUNG PROCESS NG PAG SEND NG DATA NG
+        // PULSE SENSOR TO WEB SERVER
         $request->validate([
             'api_key' => 'required',
             'id' => ['required', 'exists:devices,machine_number'],
             'hr' => 'required',
-            'spo2' => 'required'
+            'spo2' => 'required',
+            'spo2_limit' => 'required',
         ]);
 
         $hr = $request->hr;
         $spo2 = $request->spo2;
+        $spo2_limit = $request->spo2_limit;
 
         if ($request->api_key != $this->api_key_value) {
             echo "api is invalid";
@@ -35,10 +37,11 @@ class PulseDataController extends Controller
             'device_id' => $device->id,
             'patient_id' => $device->patient_id,
             'hr' => $hr,
-            'spo2' => $spo2
+            'spo2' => $spo2,
+            'spo2_limit' => $spo2_limit
         ]);
 
-        if ($hr > 100 || $hr < 60 || $spo2 < 90) {
+        if ($hr > 100 || $hr < 60 || $spo2 < $spo2_limit) {
             echo "sending email";
             $details = (object) array();
 
@@ -52,6 +55,7 @@ class PulseDataController extends Controller
                     $details->user = $user;
                     $details->hr = $hr;
                     $details->spo2 = $spo2;
+                    $details->spo2_limit = $spo2_limit;
                     
                     // PulseReportSendEmail::dispatch($details);
                     Mail::to($details->user->email)
@@ -66,6 +70,7 @@ class PulseDataController extends Controller
 
     public function getPatientPulse()
     {
+        // KINUKUHA YUNG PULSES NG PATIENTS
         $devices = Device::all();
         $array_pulse = array();
 
@@ -85,6 +90,7 @@ class PulseDataController extends Controller
     
     public function getLatestPatientPulse()
     {
+        // KINUKUHA YUNG LATEST PULSE NG PATIENT
         $devices = Device::all();
         $array_pulse = array();
 
