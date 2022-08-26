@@ -2,7 +2,8 @@
 
 @section('preload')
 <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60"
+        width="60">
 </div>
 @endsection
 @section('header')
@@ -25,22 +26,53 @@
 
 @section('content')
 <div class="row">
+    {{-- ito yung donut pie sa dashboard --}}
     @foreach ($devices as $i => $device)
-    <div class="col-12 col-sm-6 col-md-4">        
-        <div class="info-box">            
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="info-box">
             <input type="text" id="{{ 'device'.$i }}" class="knob" data-skin="tron" data-thickness="0.2" data-width="90"
-            data-height="90" data-fgColor="#3c8dbc" data-readonly="true">
+                data-height="90" data-fgColor="#3c8dbc" data-readonly="true" disabled>
 
             <div class="info-box-content">
-              <span class="info-box-text">Patient: <span id="{{ 'name'.$i }}">Patient Name</span></span>
-              <span class="info-box-text">Condition: <span id="{{ 'condition'.$i }}">Condition</span></span>
-              <span class="info-box-text">SpO2 Level: <span id="{{ 'spo2'.$i }}">SpO2</span><small>%</small></span>
-              <span class="info-box-text">Heart rate: <span id="{{ 'hr'.$i }}">HR</span></span>
+                <span class="info-box-text">Patient: <span id="{{ 'name'.$i }}">Patient Name</span></span>
+                <span class="info-box-text">Condition: <span id="{{ 'condition'.$i }}">Condition</span></span>
+                <span class="info-box-text">SpO2 Level: <span id="{{ 'spo2'.$i }}">SpO2</span><small>%</small></span>
+                <span class="info-box-text">Heart rate: <span id="{{ 'hr'.$i }}">HR</span></span>
 
-            </div>            
+            </div>
         </div>
-    </div>        
+    </div>
     @endforeach
+</div>
+<div class="row">
+    {{-- ito naman yung count ng datas --}}
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-procedures"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Patients</span>
+                <span class="info-box-number">{{ $pLen }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-laptop-medical"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Devices</span>
+                <span class="info-box-number">{{ $dLen }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Users</span>
+                <span class="info-box-number">{{ $uLen }}</span>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="row">
     @forelse ($devices as $i => $device)
@@ -269,5 +301,5 @@
   
     })
   
-  </script>
+</script>
 @endpush
