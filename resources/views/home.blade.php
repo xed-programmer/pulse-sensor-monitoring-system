@@ -87,15 +87,8 @@
     </div>
 
     <div class="row" data-aos="fade-up" data-aos-delay="100">
-      <div class="col-lg-6">
-        <div class="info-box mb-4">
-          <i class="bx bx-map"></i>
-          <h3>Our Address</h3>
-          <p>Mabalacat, Pampanga, Brgy. Dolores multipurpose hall</p>
-        </div>
-      </div>
 
-      <div class="col-lg-3 col-md-6">
+      <div class="col-lg-6 col-md-6">
         <div class="info-box  mb-4">
           <i class="bx bx-envelope"></i>
           <h3>Email Us</h3>
@@ -103,7 +96,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-6">
+      <div class="col-lg-6 col-md-6">
         <div class="info-box  mb-4">
           <i class="bx bx-phone-call"></i>
           <h3>Call Us</h3>

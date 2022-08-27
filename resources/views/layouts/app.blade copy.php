@@ -88,6 +88,53 @@
                 <b>Version</b> 3.2.0
             </div>
         </footer>
+          <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+<div class="footer-top">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-3 col-md-6 footer-contact">
+        <h3>Boom Dev<span>.</span></h3>
+        <p>
+          Mabalacat, Pampanga <br>
+          Brgy. Dolores multipurpose hall<br>
+          <strong>Phone:</strong> 09206890801<br>
+          <strong>Email:</strong> info@example.com<br>
+        </p>
+      </div>
+
+      <div class="col-lg-3 col-md-6 footer-links">
+        <h4>Useful Links</h4>
+        <ul>
+          <li><i class="bx bx-chevron-right"></i> <a href="#hero">Home</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-3 col-md-6 footer-links">
+        <h4>Our Social Networks</h4>
+        <p>Follow us on our social media account</p>
+        <div class="social-links mt-3">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container py-4">
+  <div class="copyright">
+    &copy; Copyright <strong><span>BizLand</span></strong>. All Rights Reserved
+  </div>
+</div>
+</footer><!-- End Footer -->
 
     </div>
     <!-- ./wrapper -->
