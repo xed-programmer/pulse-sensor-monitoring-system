@@ -13,6 +13,7 @@ class UserController extends Controller
         return view('user.index');
     }
 
+    // FUNCTION PARA MA VIEW AND DATA NG PATIENT NA CONNECTED SA USER
     public function showPatient(Request $request)
     {
         if(!$request->has('id')){
@@ -21,6 +22,7 @@ class UserController extends Controller
         return view('user.patient')->with('patient_id', $request->id);
     }
 
+    // MAG ADD NG PATIENT SA USER ACCOUNT
     public function storePatient(Request $request)
     {
         $user = User::find(auth()->user()->id);
@@ -41,6 +43,7 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
+    // I-REMOVE ANG PATIENT
     public function removePatient(Request $request)
     {
         $res = auth()->user()->patients()->detach($request->id);

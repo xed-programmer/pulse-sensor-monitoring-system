@@ -14,6 +14,7 @@ class ProfileController extends Controller
         return view('profile.index')->with('user', $user);
     }
 
+    // FUNCTION PARA I-UPDATE ANG NAME NG USER
     public function updateUser(Request $request, User $user)
     {
         $request->validate([
@@ -32,6 +33,7 @@ class ProfileController extends Controller
         return redirect()->route('profile.index');
     }
 
+    // FUNCTION PARA I-UPDATE AND PASSWORD NG USER
     public function updatePassword(Request $request, User $user)
     {
         $request->validate([

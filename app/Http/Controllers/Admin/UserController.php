@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller
 {
+    // FUNCTION PARA MA VIEW YUNG INDEX PAGE NG USER
     public function index()
     {
         $roles = Role::all();
         return view('admin.user')->with(['roles'=>$roles]);
     }
 
+    // FUNCTION PARA MAG ADD NG BAGONG USER
     public function store(Request $request)
     {
         $request->validate([            
@@ -44,6 +46,7 @@ class UserController extends Controller
         return redirect()->route('admin.user.index');
     }
 
+     // FUNCTION PARA KUNIN ANG DATA NG USER NA I-EEDIT
     public function edit(Request $request)
     {
         $request->validate(['id'=>['required']]);
@@ -51,6 +54,7 @@ class UserController extends Controller
         return Response::json($user);
     }
 
+    // FUNCTION PARA I-UPDATE AND DATA NG USER
     public function update(Request $request)
     {
         $request->validate([
@@ -72,6 +76,7 @@ class UserController extends Controller
         return redirect()->route('admin.user.index');
     }
 
+    // FUNCTION PARA I-DEELTE ANG USER
     public function destroy(Request $request)
     {
         $request->validate([

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Response;
 class PatientController extends Controller
 {
 
+    // FUNCTION PARA I-VIEW ANG PATIENT TAB
     public function index()
     {        
         $patients = Patient::all();
@@ -18,12 +19,14 @@ class PatientController extends Controller
         ]);
     }
 
+    // FUNCTION PARA ISHOW ANG PULSES DATA NG PATIENT
     public function show(Request $request)
     {
         $request->validate(['id'=>['required', 'exists:patients,id']]);        
         return view('admin.patient.show')->with(['patient_id'=>$request->id]);
     }
 
+    // FUNCTION PARA MAG ADD NG NEW PATIENT
     public function store(Request $request)
     {
         $request->validate([
@@ -56,7 +59,7 @@ class PatientController extends Controller
         return redirect()->route('admin.patient.index');
     }
 
-
+    // FUNCTION PARA KUNIN ANG DATA NG PATIENT NA IEEDIT
     public function edit(Request $request)
     {
         $request->validate(['id'=>['required']]);
@@ -64,6 +67,7 @@ class PatientController extends Controller
         return Response::json($patient);
     }
 
+    // FUNCTION PARA I-UPDATE ANG DATA NG PATIENT
     public function update(Request $request)
     {
         $request->validate([
@@ -87,6 +91,7 @@ class PatientController extends Controller
         return redirect()->route('admin.patient.index');
     }
 
+    // FUNCTION PARA I-DELETE ANG DATA NG PATIENT
     public function destroy(Request $request)    
     {
         $request->validate([

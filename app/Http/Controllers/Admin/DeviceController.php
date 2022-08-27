@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Response;
 
 class DeviceController extends Controller
 {
+    // ANG CONTROLLER NA TO AT PARA SA PAGMANIPULATE NG DATA NG DEVICE
     public function index()
     {
         $devices = Device::with('patient')->get();
@@ -17,6 +18,8 @@ class DeviceController extends Controller
         return view('admin.device')->with(['devices'=>$devices, 'patients'=>$patients]);
     }
 
+
+    // ANG FUNCTION NA TO AY PARA I-STORE AND NEW DEVICE SA DATABASE
     public function store(Request $request)
     {
         $request->validate([
@@ -28,6 +31,7 @@ class DeviceController extends Controller
         return back();
     }
 
+    // FUNCTION PARA KUNIN ANG DATA NG DEVICE NA IEEDIT
     public function edit(Request $request)
     {        
         $request->validate([
@@ -39,6 +43,7 @@ class DeviceController extends Controller
         return Response::json($device);
     }
 
+    // FUNCTION PARA I-UPDATE ANG DEVICE DATA
     public function update(Request $request)
     {        
         $request->validate([
@@ -63,6 +68,7 @@ class DeviceController extends Controller
         return redirect()->route('admin.device.index');
     }
 
+    // FUNCTION PARA I-DELETE ANG DEVICE DATA
     public function destroy(Request $request)
     {
         $request->validate([

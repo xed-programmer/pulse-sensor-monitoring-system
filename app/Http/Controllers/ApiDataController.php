@@ -11,6 +11,7 @@ class ApiDataController extends Controller
 {
     private $api_key_value = 'tPmAT5Ab3j7F9';
 
+    // FUNCTION PARA KUNIN ANG LAHAT NG DATA NG DEVICES
     public function getDevices(Request $request)
     {
         $request->validate([
@@ -40,6 +41,7 @@ class ApiDataController extends Controller
         echo json_encode($jsonData);
     }
 
+    // FUNCTION PARA MAKUHA ANG LAHAT NG DATA NG PATIENT
     public function getPatients(Request $request)
     {
         $request->validate([
@@ -63,6 +65,7 @@ class ApiDataController extends Controller
         echo json_encode($jsonData);
     }
 
+    // FUNCTION PARA MAKUHA ANG DATA NG LAHAT NG PATIENT NA CONNECTED SA USER
     public function getUserPatients(Request $request, User $user)
     {
         $request->validate([
@@ -85,6 +88,7 @@ class ApiDataController extends Controller
         echo json_encode($jsonData);
     }
 
+    // FUNCTION PARA MAKUHA LAHAT NG DATA NG USER
     public function getUsers(Request $request)
     {
         $request->validate([

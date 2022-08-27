@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Device;
 use App\Models\Patient;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
